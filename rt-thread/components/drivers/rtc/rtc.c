@@ -132,7 +132,7 @@ rt_err_t set_time(rt_uint32_t hour, rt_uint32_t minute, rt_uint32_t second)
 #ifdef RTC_SYNC_USING_NTP
 static void ntp_sync_thread_enrty(void *param)
 {
-    extern time_t ntp_sync_to_rtc(const char *host_name);
+    extern time_t f(const char *host_name);
     /* first sync delay for network connect */
     rt_thread_delay(RTC_NTP_FIRST_SYNC_DELAY * RT_TICK_PER_SECOND);
 
@@ -182,8 +182,9 @@ void list_date(void)
     rt_kprintf("%s\n", ctime(&now));
 }
 FINSH_FUNCTION_EXPORT(list_date, show date and time.)
+MSH_CMD_EXPORT(list_date,list_date);
 
-FINSH_FUNCTION_EXPORT(set_date, set date. e.g: set_date(2010,2,28))
+FINSH_FUNCTION_EXPORT(set_date, set date. e.g: set_date(2020,7,2))
 FINSH_FUNCTION_EXPORT(set_time, set time. e.g: set_time(23,59,59))
 
 #if defined(RT_USING_FINSH) && defined(FINSH_USING_MSH)
