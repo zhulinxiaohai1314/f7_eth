@@ -13,24 +13,29 @@
 
 #include <drivers/pin.h>
 #include <board.h>
+#include <packages/onenet-latest/inc/onenet.h>
+
 
 #include <arpa/inet.h>         /* 包含 ip_addr_t 等地址相关的头文件 */
 #include <netdev.h>            /* 包含全部的 netdev 相关操作接口函数 */
 //#include <ntp.h>
 
-
+#include "user.h"
 
 #define DBG_TAG "main"
 #define DBG_LVL DBG_LOG
 #include <rtdbg.h>
 
-#define LED0_PIN        GET_PIN(B, 1)
-#define LED1_PIN        GET_PIN(B, 0)
-#define KEY0_PIN_NUM    GET_PIN(H, 3)  /* PH3 */
+
+uint8_t led1_stat=0;
 
 void KEY_Handle(void *args)
 {
-    rt_kprintf("key is pressed\r\n");
+    rt_pin_write(LED1_PIN, led1_stat);
+    led1_stat ++;
+    led1_stat &=1;
+//    onenet_mqtt_upload_digit("LED1", led1_stat);
+//    rt_kprintf("key is pressed\r\n");
 }
 
 
@@ -46,9 +51,9 @@ int main(void)
     rt_pin_irq_enable(KEY0_PIN_NUM, PIN_IRQ_ENABLE);
 
 
-
+    rt_pin_mode(LED1_PIN, PIN_MODE_OUTPUT);
     rt_pin_mode(LED0_PIN, PIN_MODE_OUTPUT);
-
+    rt_pin_write(LED1_PIN, 1);
 
 
 
@@ -67,8 +72,9 @@ int main(void)
     netdev_Handle = netdev_get_first_by_flags(NETDEV_FLAG_UP);
     if (netdev_Handle == RT_NULL)
     {
-
         rt_kprintf("netdev_Handle get fail\r\n");
+
+
     }
     else
     {
@@ -87,6 +93,10 @@ int main(void)
 
     }
 
+
+
+    onenet_mqtt_init();
+    onenet_upload_cycle();
     while (count++)
     {
 //        LOG_D("Hello RT-Thread!");

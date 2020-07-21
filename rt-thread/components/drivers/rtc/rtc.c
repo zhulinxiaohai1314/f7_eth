@@ -14,6 +14,8 @@
 #include <time.h>
 #include <string.h>
 #include <rtthread.h>
+#include "packages/netutils-latest/ntp/ntp.h"
+#include <time.h>
 
 #ifdef RT_USING_RTC
 

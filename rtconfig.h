@@ -81,6 +81,12 @@
 
 /* Device virtual file system */
 
+#define RT_USING_DFS
+#define DFS_USING_WORKDIR
+#define DFS_FILESYSTEMS_MAX 2
+#define DFS_FILESYSTEM_TYPES_MAX 2
+#define DFS_FD_MAX 16
+#define RT_USING_DFS_DEVFS
 /* end of Device virtual file system */
 
 /* Device Drivers */
@@ -108,7 +114,8 @@
 
 /* POSIX layer and C standard library */
 
-#define RT_LIBC_USING_TIME
+#define RT_USING_LIBC
+#define RT_USING_POSIX
 /* end of POSIX layer and C standard library */
 
 /* Network */
@@ -121,7 +128,7 @@
 
 #define SAL_USING_LWIP
 /* end of protocol stack implement */
-#define SAL_SOCKETS_NUM 16
+#define SAL_USING_POSIX
 /* end of Socket abstraction layer */
 
 /* Network interface device */
@@ -200,6 +207,18 @@
 
 /* IoT - internet of things */
 
+#define PKG_USING_PAHOMQTT
+#define PAHOMQTT_PIPE_MODE
+#define RT_PKG_MQTT_THREAD_STACK_SIZE 4096
+#define PKG_PAHOMQTT_SUBSCRIBE_HANDLERS 1
+#define MQTT_DEBUG
+#define PKG_USING_PAHOMQTT_V110
+#define PKG_USING_WEBCLIENT
+#define WEBCLIENT_NOT_USE_TLS
+#define PKG_USING_WEBCLIENT_V212
+#define PKG_WEBCLIENT_VER_NUM 0x20102
+#define PKG_USING_CJSON
+#define PKG_USING_CJSON_V102
 
 /* Wi-Fi */
 
@@ -221,6 +240,15 @@
 
 /* IoT Cloud */
 
+#define PKG_USING_ONENET
+#define PKG_USING_ONENET_SAMPLE
+#define ONENET_USING_MQTT
+#define ONENET_INFO_DEVID "567306046"
+#define ONENET_INFO_AUTH "123456789"
+#define ONENET_INFO_APIKEY "47=0fjTeyyDqnQS6dIqp9aqdrHw="
+#define ONENET_INFO_PROID "293400"
+#define ONENET_MASTER_APIKEY "PB=Crr2Q7YOi=6kDI4c474MzQkg="
+#define PKG_USING_ONENET_LATEST_VERSION
 /* end of IoT Cloud */
 /* end of IoT - internet of things */
 
